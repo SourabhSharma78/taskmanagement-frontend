@@ -1,0 +1,46 @@
+/* Style for the main headings */
+h1{
+    margin: auto;
+    color: #0071c5;
+    background-color: #89CFF0;
+  }
+  
+  /* Style for the sub-headings */
+  h3{
+    margin: auto;
+    color: #0071c5;
+    background-color: #89CFF0;
+  }
+  
+  /* Style for the input fields */
+  input{
+    margin: 10px 10px 10px 2px;
+  }
+  
+  /* Style for the task lists */
+  ul{
+    background-color: #F0AA89;
+  }
+  
+  /* Style for individual task items */
+  li{
+    padding: 10px;
+    border-bottom:none;
+  }
+  
+  /* Remove bottom border for the last task item */
+  li:last-child{
+    border-bottom: none;
+  }
+  
+  /* Style for the delete icon */
+  li i {
+    float : right;
+    cursor : pointer;
+  }
+  
+  /* Style for the completed tasks list */
+  #completed{
+    background-color: #CFF089;
+  }
+  
