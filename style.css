@@ -39,8 +39,5 @@ h1{
     cursor : pointer;
   }
   
-  /* Style for the completed tasks list */
-  #completed{
-    background-color: #CFF089;
-  }
+ 
   
