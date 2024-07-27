@@ -18,8 +18,12 @@ h1{
   }
   
   /* Style for the task lists */
-  ul{
+  #tasks ul{
     background-color: #F0AA89;
+  }
+
+  #completed ul{
+    background-color: palegreen;
   }
   
   /* Style for individual task items */
@@ -39,5 +43,8 @@ h1{
     cursor : pointer;
   }
   
+  .fa-regular{
+    margin-right: 1rem;
+  }
  
   

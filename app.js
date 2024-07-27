@@ -8,9 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to fetch tasks from the server and display them
     async function fetchTasks() {
-        const response = await fetch('http://localhost:3000/tasks/tasksData');
-        const tasks = await response.json();
-        tasks.forEach(addTaskToDOM);
+        const response = await fetch('http://localhost:3000/tasks/');
+        const tasks =  await response.json();
+        console.log(tasks);
     }
 
     // Function to add a new task
@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
             headers: {
                 'Content-Type': 'application/json'
             },
+            
             body: JSON.stringify({ title, description, dueDate })
         });
 
@@ -40,15 +41,35 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to delete a task
     async function deleteTask(id) {
         try {
-            // Wait for the fetch request to complete
             await fetch(`http://localhost:3000/tasks/tasksData/${id}`, {
                 method: 'DELETE'
             });
-    
             // Remove the task from the UI
             document.getElementById(`task-${id}`).remove();
+            
         } catch (error) {
             console.error('Error deleting task:', error);
+            // Handle the error, e.g., display an error message to the user
+        }
+    }
+
+    //function to add task to completed 
+
+    async function updateCompleted(id) {
+        try {
+            await fetch(`http://localhost:3000/tasks/tasksData/${id}`, {
+                method: 'PATCH'
+            });
+            // Remove the task from the UI
+            document.getElementById(`task-${id}`).remove();
+
+            // add task to completed tasks
+            const completion = document.getElementById(`task-${id}`);
+            completedTasks.appendChild(completion);
+            
+            
+        } catch (error) {
+            console.error('Error in adding to completed tasks ', error);
             // Handle the error, e.g., display an error message to the user
         }
     }
@@ -61,13 +82,17 @@ document.addEventListener('DOMContentLoaded', function() {
             <strong>${task.title}</strong><br>
             ${task.description}<br>
             Due: ${task.dueDate}
+            <i class="fa-regular fa-square-check" data-id="${task._id}"></i>
             <i class="fa-regular fa-square-minus" data-id="${task._id}"></i>
         `;
     
         const deleteIcon = taskElement.querySelector('.fa-square-minus');
         deleteIcon.addEventListener('click', () => deleteTask(task._id));
+        const taskcompletion = taskElement.querySelector('.fa-square-check');
+        taskcompletion.addEventListener('click' , () => updateCompleted(task._id));
     
-        tasks.appendChild(taskElement);function addTaskToDOM(task) {
+        tasks.appendChild(taskElement);
+        function addTaskToDOM(task) {
             const taskElement = document.createElement('li');
             taskElement.id = `task-${task._id}`;
             taskElement.innerHTML = `
@@ -75,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 ${task.description}<br>
                 Due: ${task.dueDate}
                 <i class="fa-regular fa-square-minus" data-id="${task._id}" onclick="deleteTask('${task._id}')"></i> `;
-        
+                
             tasks.appendChild(taskElement);
         }
     }
